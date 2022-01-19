@@ -58,6 +58,7 @@ margin: 0;
   display: flex;
   align-items: center;
   place-content: center;
+  user-select: none;
   
   &:hover {
     cursor: pointer;

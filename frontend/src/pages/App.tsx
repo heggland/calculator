@@ -1,35 +1,62 @@
 import { useState } from "react";
 import Heading from "../components/Heading/Heading";
+import calc from "../utils/calc";
 
 const App = () => {
   const [start, setStart] = useState(false);
-  const [calc, setCalc] = useState(0);
-  const [window, setWindow] = useState(0);
+  const [num, setNum] = useState("");
+  const [num1, setNum1] = useState("");
+  const [sign, setSign] = useState("");
+  const [window, setWindow] = useState("");
 
-  const Display = () => {
-    return <div className="display">{window}</div>;
+  // handle number input
+  const handleNumberPress = (e: any) => {
+    setStart(true);
+    const value = e.target.dataset.value;
+    setWindow(window + value.toString());
+
+    // if sign is set
+    if (sign === "") {
+      setNum(num + value);
+    } else {
+      setNum1(num1 + value);
+    }
   };
 
-  const handleNumberPress = (e: any) => {
-    console.log(e.target.dataset.value);
-    setStart(true);
+  // handle sign input
+  const handleSignPress = (e: any) => {
+    const value = e.target.dataset.value;
+    setSign(value);
+    setWindow(window.toString() + value);
+  };
 
-    const newValue =
-      calc === 0 ? e.target.dataset.value : calc + e.target.dataset.value;
+  // run the calculation
+  const runCalc = () => {
+    const resultF = calc(parseInt(num), parseInt(num1), sign).toString();
+    //setWindow(result);
 
-    setCalc(newValue);
-    setWindow(newValue);
+    const result = eval(window);
+    setWindow(result.toString());
+
+    setSign("");
+    setNum(result);
+    setNum1("");
   };
 
   const resetCalc = () => {
+    // reset all values
     setStart(false);
-    setCalc(0);
-    setWindow(0);
+    setWindow("");
+    setSign("");
+    setNum("");
+    setNum1("");
   };
 
-  const runCalc = () => {
-    console.log(eval(calc.toString()));
-    setWindow(eval(calc.toString()));
+  // remove last keypress
+  const revertPress = () => setWindow(window.slice(0, -1));
+
+  const Display = () => {
+    return <div className="display">{window}</div>;
   };
 
   return (
@@ -44,38 +71,40 @@ const App = () => {
           </div>
           <div className="col-12 h-5 border-1 greyBg">
             <div className="row">
-              <div className="col-4 border-1 h-1 key" />
-              <div className="col-4 border-1 h-1 key" />
-              <div className="col-4 border-1 h-1 key" />
               <div className="col-4 border-1 h-1 key" onClick={resetCalc}>
-                reset
+                EC
               </div>
+              <div className="col-4 border-1 h-1 key" onClick={revertPress}>
+                {`<`}
+              </div>
+              <div className="col-4 border-1 h-1 key" />
+              <div className="col-4 border-1 h-1 key" />
             </div>
             <div className="row">
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="7"
+                data-value={7}
               >
                 7
               </div>
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="8"
+                data-value={8}
               >
                 8
               </div>
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="9"
+                data-value={9}
               >
                 9
               </div>
               <div
                 className="col-4 border-1 h-1 key"
-                onClick={handleNumberPress}
+                onClick={handleSignPress}
                 data-value="/"
               >
                 /
@@ -85,27 +114,27 @@ const App = () => {
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="4"
+                data-value={4}
               >
                 4
               </div>
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="5"
+                data-value={5}
               >
                 5
               </div>
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="6"
+                data-value={6}
               >
                 6
               </div>
               <div
                 className="col-4 border-1 h-1 key"
-                onClick={handleNumberPress}
+                onClick={handleSignPress}
                 data-value="*"
               >
                 x
@@ -115,27 +144,27 @@ const App = () => {
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="1"
+                data-value={1}
               >
                 1
               </div>
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="2"
+                data-value={2}
               >
                 2
               </div>
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="3"
+                data-value={3}
               >
                 3
               </div>
               <div
                 className="col-4 border-1 h-1 key"
-                onClick={handleNumberPress}
+                onClick={handleSignPress}
                 data-value="-"
               >
                 -
@@ -145,7 +174,7 @@ const App = () => {
               <div
                 className="col-4 border-1 h-1 key"
                 onClick={handleNumberPress}
-                data-value="0"
+                data-value={0}
               >
                 0
               </div>
@@ -165,7 +194,7 @@ const App = () => {
               </div>
               <div
                 className="col-4 border-1 h-1 key"
-                onClick={handleNumberPress}
+                onClick={handleSignPress}
                 data-value="+"
               >
                 +
