@@ -2,6 +2,8 @@ import { useState } from "react";
 import Heading from "../components/Heading/Heading";
 import calc from "../utils/calc";
 
+import Test from "./Test";
+
 const App = () => {
   const [start, setStart] = useState(false);
   const [num, setNum] = useState("");
@@ -202,6 +204,8 @@ const App = () => {
             </div>
           </div>
         </div>
+
+        <Test />
       </main>
     </div>
   );
