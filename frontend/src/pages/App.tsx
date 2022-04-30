@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Heading from "../components/Heading/Heading";
-import calc from "../utils/calc";
+// import calc from "../utils/calc";
 
 const App = () => {
   const [start, setStart] = useState(false);
