@@ -11,7 +11,7 @@ const calc = (a: number, b: number, sign: string): number => {
     case "/":
       return a / b;
     default:
-      return a + b;
+      return 0;
   }
 };
 

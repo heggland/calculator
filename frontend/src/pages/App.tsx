@@ -2,8 +2,6 @@ import { useState } from "react";
 import Heading from "../components/Heading/Heading";
 import calc from "../utils/calc";
 
-import Test from "./Test";
-
 const App = () => {
   const [start, setStart] = useState(false);
   const [num, setNum] = useState("");
@@ -34,8 +32,7 @@ const App = () => {
 
   // run the calculation
   const runCalc = () => {
-    const resultF = calc(parseInt(num), parseInt(num1), sign).toString();
-    //setWindow(result);
+    // const resultF = calc(parseInt(num), parseInt(num1), sign).toString();
 
     const result = eval(window);
     setWindow(result.toString());
@@ -204,8 +201,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
-        <Test />
       </main>
     </div>
   );

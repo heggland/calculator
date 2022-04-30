@@ -1,12 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-import col from "./col";
-import color from "./color";
-import padding from "./padding";
-import height from "./height";
-import border from "./border";
-import row from "./row";
-
-export default createGlobalStyle`
+const global = `
 
 html,
 body {
@@ -75,11 +67,6 @@ margin: 0;
   font-size: 2rem;
 }
 
-  ${col}
-  ${row}
-  ${color}
-  ${padding}
-  ${height}
-  ${border}
-
 `;
+
+export default global;
